@@ -1,0 +1,7 @@
+notifications:
+  on_success: "never"
+
+language: go
+go: 1.20
+install: go get github.com/sapient/sluggo
+script: go test
