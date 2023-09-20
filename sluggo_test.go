@@ -5,9 +5,30 @@ import (
 )
 
 func TestSluggo(t *testing.T) {
-	tStr := "Hello 😊, 123@email.com!"
+	testTable := []struct {
+		in  string
+		out string
+	}{
+		{
+			in:  "Hello",
+			out: "hello",
+		},
+		{
+			in:  "Hello 😊, 123",
+			out: "hello-123",
+		},
+		{
+			in:  "Money & Power = ?",
+			out: "money-power",
+		},
+	}
 
-	if Sluggo(tStr) != "hello-123-email-com" {
-		t.Fatalf("Sluggo(\"%s\") should be \"hello-123-email-com\" but is %s", tStr, Sluggo(tStr))
+	for _, tt := range testTable {
+		t.Run(tt.in, func(t *testing.T) {
+			s := Sluggo(tt.in)
+			if s != tt.out {
+				t.Errorf("got %s, want %s", s, tt.out)
+			}
+		})
 	}
 }
